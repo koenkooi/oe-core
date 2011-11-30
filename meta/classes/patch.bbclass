@@ -121,6 +121,7 @@ python patch_do_patch() {
 		"patch": oe.patch.PatchTree,
 		"quilt": oe.patch.QuiltTree,
 		"git": oe.patch.GitApplyTree,
+		"gitam": oe.patch.GitAmTree,
 	}
 
 	cls = patchsetmap[d.getVar('PATCHTOOL', True) or 'quilt']

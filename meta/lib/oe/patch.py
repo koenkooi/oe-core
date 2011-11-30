@@ -217,6 +217,20 @@ class GitApplyTree(PatchTree):
 
         return runcmd(["sh", "-c", " ".join(shellcmd)], self.dir)
 
+class GitAmTree(PatchTree):
+    def __init__(self, dir, d):
+        PatchTree.__init__(self, dir, d)
+
+    def _applypatch(self, patch, force = False, reverse = False, run = True):
+        shellcmd = ["git", "am"]
+
+        shellcmd.append(patch['file'])
+
+        if not run:
+            return "sh" + "-c" + " ".join(shellcmd)
+
+        return runcmd(["sh", "-c", " ".join(shellcmd)], self.dir)
+
 
 class QuiltTree(PatchSet):
     def _runcmd(self, args, run = True):
