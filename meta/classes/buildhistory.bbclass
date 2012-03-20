@@ -398,7 +398,9 @@ buildhistory_commit() {
 		fi
 		git add ${BUILDHISTORY_DIR}/*
 		HOSTNAME=`hostname 2>/dev/null || echo unknown`
-		git commit ${BUILDHISTORY_DIR}/ -m "Build ${BUILDNAME} of ${DISTRO} ${DISTRO_VERSION} for machine ${MACHINE} on $HOSTNAME" --author "${BUILDHISTORY_COMMIT_AUTHOR}" > /dev/null
+		for entry in ${BUILDHISTORY_DIR}/* ; do
+			git commit $entry -m "$entry: Build ${BUILDNAME} of ${DISTRO} ${DISTRO_VERSION} for machine ${MACHINE} on $HOSTNAME" --author "${BUILDHISTORY_COMMIT_AUTHOR}" > /dev/null
+		done
 		if [ "${BUILDHISTORY_PUSH_REPO}" != "" ] ; then
 			git push -q ${BUILDHISTORY_PUSH_REPO}
 		fi
